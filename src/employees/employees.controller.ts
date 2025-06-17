@@ -26,7 +26,7 @@ export class EmployeesController {
   }
 
   @Get(':id')
-  find(@Param('id') id: string) {
+  findOne(@Param('id') id: string) {
     return this.employeesService.findEmployee(+id);
   }
 
@@ -35,7 +35,7 @@ export class EmployeesController {
     @Param('id') id: string,
     @Body() updateEmployeeDto: UpdateEmployeeDto,
   ) {
-    return this.employeesService.update(+id, updateEmployeeDto);
+    return this.employeesService.updateEmployee(+id, updateEmployeeDto);
   }
 
   @Delete(':id')
@@ -46,6 +46,5 @@ export class EmployeesController {
   @Get('search/:name')
   searchByName(@Param('name') name: string) {
     return this.employeesService.searchByName(name);
-  } 
-
+  }
 }
