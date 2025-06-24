@@ -40,11 +40,16 @@ export class EmployeesController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.employeesService.remove(+id);
+    return this.employeesService.removeEmployee(+id);
   }
 
   @Get('search/:name')
   searchByName(@Param('name') name: string) {
     return this.employeesService.searchByName(name);
+  }
+
+  @Delete('delete/:id')
+  removeEmployee(@Param('id') id: string) {
+    return this.employeesService.removeEmployee(+id);
   }
 }

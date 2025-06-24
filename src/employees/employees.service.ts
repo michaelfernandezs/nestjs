@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -53,18 +53,22 @@ export class EmployeesService {
     }
   }
 
-  async remove(id: number): Promise<Employee | {}> {
-    try {
+  async removeEmployee(id: number) {
+     try {
       const employee = await this.employeesRepository.findOneBy({ id });
-      if (!employee) return {};
-      await this.employeesRepository.remove(employee);
-      return employee;
-    } catch (error) {
-      console.error(`Error al eliminar empleado con ID ${id}:`, error);
-      return {};
-    }
-  }
+      if (!employee) {
+        throw new NotFoundException(`Empleado con ID ${id} no encontrado`);
 
+      }
+      await this.employeesRepository.remove(employee);
+      return { message: `Empleado con ID ${id} eliminado correctamente` };
+      
+    } catch (error) {
+      throw new InternalServerErrorException(`Error al eliminar: ${error}`);
+      
+    }
+   
+  }
   async searchByName(name: string): Promise<Employee[] | []> {
     try {
       return await this.employeesRepository.find({

@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DepartamentosModule } from './departamentos/departamentos.module';
 import { Employee } from './employees/entities/employee.entity';  
 import { Departamento } from './departamentos/entities/departamento.entity';
+import { PositionModule } from './position/position.module';
 
 @Module({
   imports: [EmployeesModule,
@@ -23,7 +24,8 @@ import { Departamento } from './departamentos/entities/departamento.entity';
   
 
   }),
-  DepartamentosModule
+  DepartamentosModule,
+  PositionModule
   ],
 
   controllers: [AppController],
