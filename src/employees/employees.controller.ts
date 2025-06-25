@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
@@ -51,5 +52,9 @@ export class EmployeesController {
   @Delete('delete/:id')
   removeEmployee(@Param('id') id: string) {
     return this.employeesService.removeEmployee(+id);
+  }
+  @Get('/search')
+  SearchEmployee(@Query('busqueda') busqueda: string) {
+    return {buscando:busqueda}
   }
 }

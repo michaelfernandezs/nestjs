@@ -24,7 +24,11 @@ export class EmployeesService {
 
   async findAll(): Promise<Employee[] | []> {
     try {
-      return await this.employeesRepository.find();
+      return await this.employeesRepository.find(
+        {
+          relations: ['position'], // Asegúrate de que 'position' es una relación válida en tu entidad Employee
+        }
+      );
     } catch (error) {
       console.error('Error al buscar todos los empleados:', error);
       return [];
@@ -32,6 +36,7 @@ export class EmployeesService {
   }
 
   async findEmployee(id: number): Promise<Employee | {}> {
+  
     try {
       const employee = await this.employeesRepository.findOneBy({ id });
       return employee || {};
@@ -45,7 +50,7 @@ export class EmployeesService {
     try {
       const employee = await this.employeesRepository.findOneBy({ id });
       if (!employee) return {};
-      const updated = this.employeesRepository.merge(employee, updateEmployeeDto);
+      const updated = this.employeesRepository.merge(employee, updateEmployeeDto) ;
       return await this.employeesRepository.save(updated);
     } catch (error) {
       console.error(`Error al actualizar empleado con ID ${id}:`, error);
