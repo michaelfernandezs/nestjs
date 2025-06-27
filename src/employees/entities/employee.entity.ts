@@ -19,6 +19,14 @@ export class Employee {
     @Column()
     email: string;
 
+    @Column({ nullable: true })
+    password: string;
+
+    @Column({ nullable: true })
+    username: string;
+
+    
+
     @ManyToOne(()=>Position, (position) => position.employees )
     position: Position;
 

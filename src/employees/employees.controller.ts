@@ -49,6 +49,11 @@ export class EmployeesController {
     return this.employeesService.searchByName(name);
   }
 
+  @Get('all')
+  getAllEmployees() {
+    return this.employeesService.findAll();
+  }
+
   @Delete('delete/:id')
   removeEmployee(@Param('id') id: string) {
     return this.employeesService.removeEmployee(+id);
